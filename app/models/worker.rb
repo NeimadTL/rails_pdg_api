@@ -1,12 +1,16 @@
 class Worker < ApplicationRecord
 
   validates :first_name, presence: true
-  validates :price_per_shift, numericality: { only_integer: true }
+  validates :status, presence: true
 
   has_many :shifts, :foreign_key => :worker_id, class_name: 'Shift'
 
   def price
-    self.shifts.count * self.price_per_shift
+    if self.status.eql?('medic')
+      self.shifts.count * 270
+    elsif self.status.eql?('intern')
+      self.shifts.count * 126
+    end
   end
 
 end

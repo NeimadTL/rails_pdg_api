@@ -9,10 +9,10 @@
 Worker.delete_all
 Shift.delete_all
 
-julie = Worker.create!(first_name: 'Julie', price_per_shift: 230)
-marc = Worker.create!(first_name: 'Marc', price_per_shift: 100)
-antoine = Worker.create!(first_name: 'Antoine', price_per_shift: 230)
-emilie = Worker.create!(first_name: 'Emilie', price_per_shift: 100)
+julie = Worker.create!(first_name: 'Julie', status: 'medic')
+marc = Worker.create!(first_name: 'Marc', status: 'medic')
+antoine = Worker.create!(first_name: 'Antoine', status: 'intern')
+emilie = Worker.create!(first_name: 'Emilie', status: 'medic')
 
 Shift.create!(worker_id: julie.id, start_date: '2017-1-1')
 Shift.create!(worker_id: marc.id, start_date: '2017-1-2')

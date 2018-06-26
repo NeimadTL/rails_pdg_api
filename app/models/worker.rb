@@ -5,4 +5,8 @@ class Worker < ApplicationRecord
 
   has_many :shifts, :foreign_key => :worker_id, class_name: 'Shift'
 
+  def price
+    self.shifts.count * self.price_per_shift
+  end
+
 end

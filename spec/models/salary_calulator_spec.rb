@@ -30,6 +30,20 @@ RSpec.describe SalaryCalculator, type: :model do
       expected_salary = SalaryCalculator.instance.salary(sarah)
       expect(expected_salary).to eql(252)
     end
+
+    it 'returns 480 when it is a cover with one shift' do
+      gary = Worker.create!(first_name: 'Gary', status: 'cover')
+      gary.shifts << Shift.create!(worker_id: gary.id, start_date: '2017-1-2')
+      expected_salary = SalaryCalculator.instance.salary(gary)
+      expect(expected_salary).to eql(480)
+    end
+
+    it 'returns 960 when it is a cover with one shift on weekend' do
+      alexey = Worker.create!(first_name: 'Alexey', status: 'cover')
+      alexey.shifts << Shift.create!(worker_id: alexey.id, start_date: '2017-1-1')
+      expected_salary = SalaryCalculator.instance.salary(alexey)
+      expect(expected_salary).to eql(960)
+    end
   end
 
 end

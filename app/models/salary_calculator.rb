@@ -3,6 +3,7 @@ class SalaryCalculator
 
   MEDIC_FEE = 270
   INTERN_FEE = 126
+  COVER_FEE = 480
 
   def salary(worker)
     salary, status = 0, worker.status
@@ -19,6 +20,8 @@ class SalaryCalculator
         MEDIC_FEE
       elsif status.eql?('intern')
         INTERN_FEE
+      elsif status.eql?('cover')
+        COVER_FEE
       end
     end
 

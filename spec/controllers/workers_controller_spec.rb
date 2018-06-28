@@ -22,6 +22,8 @@ RSpec.describe WorkersController, type: :controller do
       expect(parsed_response['workers'][3]['price']).to eq(810)
       expect(parsed_response['workers'][4]['first_name']).to eq("Lea")
       expect(parsed_response['workers'][4]['price']).to eq(1920)
+      expect(parsed_response['commission']['pdg_fee']).to eq(450.3)
+      expect(parsed_response['commission']['cover_shifts']).to eq(3)
     end
   end
 

@@ -27,4 +27,25 @@ RSpec.describe WorkersController, type: :controller do
     end
   end
 
+
+  describe "when POST #create " do
+    it "with good params, returns http success and worker is created" do
+      post :create, xhr: true, params: { worker: { first_name: "Damien", status: 'cover' } }
+      expect(response).to have_http_status(:success)
+      parsed_body = JSON.parse(response.body)
+      expect(parsed_body['message']).to eq 'The worker Damien was created successfully'
+      created_worker = Worker.last
+      expect(created_worker.first_name).to eq 'Damien'
+      expect(created_worker.status).to eq 'cover'
+    end
+
+    it "with bad params, returns http unprocessable_entity" do
+      post :create, xhr: true, params: { worker: { first_name: nil, status: nil } }
+      expect(response).to have_http_status(:unprocessable_entity)
+      parsed_body = JSON.parse(response.body)
+      expect(parsed_body['workers'].include?("First name can't be blank")).to be true
+      expect(parsed_body['workers'].include?("Status can't be blank")).to be true
+    end
+  end
+
 end

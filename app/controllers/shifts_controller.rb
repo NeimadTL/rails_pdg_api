@@ -8,7 +8,7 @@ class ShiftsController < ApplicationController
   def create
     @shift = Shift.new(shift_params)
     if @shift.save
-      @message = "The shift for #{@shift.worker.first_name} on #{@shift.start_date} was created successfully"
+      @message = "The shift on #{@shift.start_date} was created successfully"
       render json: { user: @shift,  message: @message }, status: :created
     else
       render json: @shift.errors.full_messages, status: :unprocessable_entity

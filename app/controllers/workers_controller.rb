@@ -1,7 +1,7 @@
 class WorkersController < ApplicationController
 
   def index
-    @workers = Worker.all
+    @workers = Worker.order(created_at: :desc)
     render json: {
       workers: ActiveModel::ArraySerializer.new(@workers, each_serializer: WorkerSerializer),
       commission: CommissionCalculator.new

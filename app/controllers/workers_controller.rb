@@ -13,8 +13,19 @@ class WorkersController < ApplicationController
     @worker = Worker.new(worker_params)
     if @worker.save
       @message = "The worker #{@worker.first_name} was created successfully"
-      render json: { user: @worker,  message: @message }, status: :created
+      render json: { worker: @worker,  message: @message }, status: :created
     else
+      render json: @worker.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    @worker = Worker.find(params[:id])
+    if @worker.update(worker_params)
+      @message = "The worker #{@worker.first_name} was updated successfully"
+      render json: { worker: @worker,  message: @message }, status: :ok
+    else
+      puts "#{@worker.errors.full_messages}"
       render json: @worker.errors.full_messages, status: :unprocessable_entity
     end
   end

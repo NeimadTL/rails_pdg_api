@@ -9,7 +9,17 @@ class ShiftsController < ApplicationController
     @shift = Shift.new(shift_params)
     if @shift.save
       @message = "The shift on #{@shift.start_date} was created successfully"
-      render json: { user: @shift,  message: @message }, status: :created
+      render json: { shift: @shift,  message: @message }, status: :created
+    else
+      render json: @shift.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    @shift = Shift.find(params[:id])
+    if @shift.update(shift_params)
+      @message = "The shift on #{@shift.start_date} was updated successfully"
+      render json: { shift: @shift,  message: @message }, status: :ok
     else
       render json: @shift.errors.full_messages, status: :unprocessable_entity
     end

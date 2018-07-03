@@ -25,7 +25,6 @@ class WorkersController < ApplicationController
       @message = "The worker #{@worker.first_name} was updated successfully"
       render json: { worker: @worker,  message: @message }, status: :ok
     else
-      puts "#{@worker.errors.full_messages}"
       render json: @worker.errors.full_messages, status: :unprocessable_entity
     end
   end

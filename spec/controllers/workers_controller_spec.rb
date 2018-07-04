@@ -48,4 +48,28 @@ RSpec.describe WorkersController, type: :controller do
     end
   end
 
+  describe "when PUT #update " do
+    it "with good params, returns http success and worker is updated" do
+      worker_to_update = Worker.find_by(first_name: 'Julie')
+      put :update, xhr: true, params: { id: worker_to_update.id, worker: { first_name: "Julia", status: 'cover' } }
+      expect(response).to have_http_status(:success)
+      parsed_body = JSON.parse(response.body)
+      expect(parsed_body['message']).to eq 'The worker Julia was updated successfully'
+      updated_worker = Worker.find(worker_to_update.id)
+      expect(updated_worker.first_name).to eq 'Julia'
+      expect(updated_worker.status).to eq 'cover'
+    end
+
+    it "with bad params, returns http success and worker doesn't change" do
+      worker_to_update = Worker.find_by(first_name: 'Julie')
+      put :update, xhr: true, params: { id: worker_to_update.id, worker: { first_name: "Julia", status: nil } }
+      expect(response).to have_http_status(:unprocessable_entity)
+      parsed_body = JSON.parse(response.body)
+      expect(parsed_body['workers'].include?("Status can't be blank")).to be true
+    end
+  end
+
+
+
+
 end

@@ -43,8 +43,8 @@ RSpec.describe WorkersController, type: :controller do
       post :create, xhr: true, params: { worker: { first_name: nil, status: nil } }
       expect(response).to have_http_status(:unprocessable_entity)
       parsed_body = JSON.parse(response.body)
-      expect(parsed_body['workers'].include?("First name can't be blank")).to be true
-      expect(parsed_body['workers'].include?("Status can't be blank")).to be true
+      expect(parsed_body['errors'].include?("First name can't be blank")).to be true
+      expect(parsed_body['errors'].include?("Status can't be blank")).to be true
     end
   end
 
@@ -65,7 +65,7 @@ RSpec.describe WorkersController, type: :controller do
       put :update, xhr: true, params: { id: worker_to_update.id, worker: { first_name: "Julia", status: nil } }
       expect(response).to have_http_status(:unprocessable_entity)
       parsed_body = JSON.parse(response.body)
-      expect(parsed_body['workers'].include?("Status can't be blank")).to be true
+      expect(parsed_body['errors'].include?("Status can't be blank")).to be true
     end
   end
 

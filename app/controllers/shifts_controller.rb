@@ -11,7 +11,7 @@ class ShiftsController < ApplicationController
       @message = "The shift on #{@shift.start_date} was created successfully"
       render json: { shift: @shift,  message: @message }, status: :created
     else
-      render json: @shift.errors.full_messages, status: :unprocessable_entity
+      render json: { errors: @shift.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -21,7 +21,7 @@ class ShiftsController < ApplicationController
       @message = "The shift on #{@shift.start_date} was updated successfully"
       render json: { shift: @shift,  message: @message }, status: :ok
     else
-      render json: @shift.errors.full_messages, status: :unprocessable_entity
+      render json: { errors: @shift.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

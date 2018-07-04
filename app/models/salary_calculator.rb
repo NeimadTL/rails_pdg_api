@@ -16,11 +16,11 @@ class SalaryCalculator
   private
 
     def fee(status)
-      if status.eql?('medic')
+      if status.eql?(Worker::MEDIC_STATUS)
         MEDIC_FEE
-      elsif status.eql?('intern')
+      elsif status.eql?(Worker::INTERN_STATUS)
         INTERN_FEE
-      elsif status.eql?('cover')
+      elsif status.eql?(Worker::COVER_STATUS)
         COVER_FEE
       end
     end

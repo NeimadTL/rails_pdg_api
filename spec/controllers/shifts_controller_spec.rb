@@ -61,7 +61,7 @@ RSpec.describe ShiftsController, type: :controller do
       post :create, xhr: true, params: { shift: { start_date: nil } }
       expect(response).to have_http_status(:unprocessable_entity)
       parsed_body = JSON.parse(response.body)
-      expect(parsed_body['shifts'].include?("Start date can't be blank")).to be true
+      expect(parsed_body['errors'].include?("Start date can't be blank")).to be true
     end
   end
 
@@ -85,7 +85,7 @@ RSpec.describe ShiftsController, type: :controller do
       put :update, xhr: true, params: { id: shift_to_update.id, shift: { start_date: nil } }
       expect(response).to have_http_status(:unprocessable_entity)
       parsed_body = JSON.parse(response.body)
-      expect(parsed_body['shifts'].include?("Start date can't be blank")).to be true
+      expect(parsed_body['errors'].include?("Start date can't be blank")).to be true
     end
   end
 

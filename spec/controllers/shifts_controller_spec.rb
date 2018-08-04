@@ -89,5 +89,16 @@ RSpec.describe ShiftsController, type: :controller do
     end
   end
 
+  describe "when DELETE #destroy " do
+    it "with good params, returns http success and shift is destroyed" do
+      shift_to_destroy = Shift.find_by(start_date: '2017-1-1')
+      delete :destroy, xhr: true, params: { id: shift_to_destroy.id }
+      expect(response).to have_http_status(:success)
+      parsed_body = JSON.parse(response.body)
+      expect(parsed_body['message']).to eq "The shift on #{shift_to_destroy.start_date} was deleted successfully"
+      expect(Shift.exists?(shift_to_destroy.id)).to be false
+    end
+  end
+
 
 end
